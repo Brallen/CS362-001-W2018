@@ -56,6 +56,7 @@ public class ApptTest {
 		title,
 		description);
 		
+		//check the set functions
 		appt.setStartHour(4);
 		appt.setStartMinute(1);
 		appt.setStartDay(20);
@@ -71,7 +72,7 @@ public class ApptTest {
 		assertEquals(2020, appt.getStartYear());
 		assertEquals("Vote", appt.getTitle());
 		//this test wont run cause you can't pass null in anyways
-		//assertEquals("", appt.setTitle(String null));
+		//assertEquals("", appt.setTitle(null));
 		assertEquals("Kanye for prez 2020", appt.getDescription());
 	}
 	
@@ -102,7 +103,7 @@ public class ApptTest {
 		
 		int[] arr = new int[1];
 		arr[0] = 1;
-		appt.setRecurrence(arr, 10, 2, 5);
+		appt.setRecurrence(arr, 10, 2, 5); //days
 		assertEquals(1, appt.getRecurDays()[0]);
 
 		assertTrue(appt.isRecurring()); //is recurring?
@@ -134,6 +135,16 @@ public class ApptTest {
 		title,
 		description);
 	
+		startHour = 12;
+		Appt appt3 = new Appt(startHour,
+		startMinute ,
+		startDay ,
+		startMonth ,
+		startYear ,
+		title,
+		description);
+		
+		assertNotNull(appt3.toString());
 		assertEquals(appt1.toString(), appt2.toString());
 		assertEquals(appt1.compareTo(appt2), appt2.compareTo(appt1));
 	}
@@ -152,25 +163,28 @@ public class ApptTest {
 		Appt appt1 = new Appt(startHour, startMinute , startDay , startMonth , startYear , title, description);
 		assertTrue(appt1.getValid());
 		
-		startHour = -1;
+		startHour = 24;
 		Appt appt2 = new Appt(startHour, startMinute , startDay , startMonth , startYear , title, description);
 		assertFalse(appt2.getValid());
 		
 		startHour = 1;
-		startMinute = -1;
+		startMinute = 60;
 		Appt appt3 = new Appt(startHour, startMinute , startDay , startMonth , startYear , title, description);
 		assertFalse(appt3.getValid());
 		
 		startMinute = 1;
 		startDay = 1000;
+		Appt appt8 = new Appt(startHour, startMinute , startDay , startMonth , startYear , title, description);
+		assertFalse(appt8.getValid());
+		
+		startDay = 0;
 		Appt appt4 = new Appt(startHour, startMinute , startDay , startMonth , startYear , title, description);
 		assertFalse(appt4.getValid());
 		
 		startDay = 17;
-		startMonth = 0;
+		startMonth = 12;
 		//this will fail because of an out of bounds error from getting the days in the month
-		//Appt appt5 = new Appt(startHour, startMinute , startDay , startMonth , startYear , title, description);
-		//assertFalse(appt5.getValid());
-		
+		Appt appt5 = new Appt(startHour, startMinute , startDay , startMonth , startYear , title, description);
+		assertFalse(appt5.getValid());
 	}
 }
