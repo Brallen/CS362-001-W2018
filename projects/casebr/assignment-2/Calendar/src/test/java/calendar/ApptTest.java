@@ -144,6 +144,17 @@ public class ApptTest {
 		title,
 		description);
 		
+		startHour = 9999;
+		Appt appt4 = new Appt(startHour,
+		startMinute ,
+		startDay ,
+		startMonth ,
+		startYear ,
+		title,
+		description);
+		
+		
+		assertNull(appt4.toString());
 		assertNotNull(appt3.toString());
 		assertEquals(appt1.toString(), appt2.toString());
 		assertEquals(appt1.compareTo(appt2), appt2.compareTo(appt1));
@@ -172,7 +183,7 @@ public class ApptTest {
 		Appt appt3 = new Appt(startHour, startMinute , startDay , startMonth , startYear , title, description);
 		assertFalse(appt3.getValid());
 		
-		startMinute = 1;
+		startMinute = 0;
 		startDay = 1000;
 		Appt appt8 = new Appt(startHour, startMinute , startDay , startMonth , startYear , title, description);
 		assertFalse(appt8.getValid());
