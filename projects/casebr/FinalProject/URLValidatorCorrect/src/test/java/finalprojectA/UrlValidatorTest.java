@@ -81,10 +81,10 @@ protected void setUp() {
     * @param testObjects Used to create a url.
     */
    public void testIsValid(Object[] testObjects, long allowAllSchemes) {
-	      UrlValidator urlVal = new UrlValidator(null, null, allowAllSchemes);
+	      UrlValidator urlVal = new UrlValidator(null, null, allowAllSchemes); //create a new url validator object to test with
 	      //UrlValidator urlVal = new UrlValidator(null, allowAllSchemes);
-      assertTrue(urlVal.isValid("http://www.google.com"));
-      assertTrue(urlVal.isValid("http://www.google.com/"));
+      assertTrue(urlVal.isValid("http://www.google.com")); //assume that google is a gold standard test case
+      assertTrue(urlVal.isValid("http://www.google.com/")); //test for the slash
       int statusPerLine = 60;
       int printed = 0;
       if (printIndex)  {
@@ -93,18 +93,19 @@ protected void setUp() {
       do {
           StringBuilder testBuffer = new StringBuilder();
          boolean expected = true;
-         for (int testPartsIndexIndex = 0; testPartsIndexIndex < testPartsIndex.length; ++testPartsIndexIndex) {
-            int index = testPartsIndex[testPartsIndexIndex];
-            ResultPair[] part = (ResultPair[]) testObjects[testPartsIndexIndex];
-            testBuffer.append(part[index].item);
-            expected &= part[index].valid;
+         for (int testPartsIndexIndex = 0; testPartsIndexIndex < testPartsIndex.length; ++testPartsIndexIndex) { //testPartsIndex is an array of 5 which starts all 0s
+            int index = testPartsIndex[testPartsIndexIndex]; //current element
+            ResultPair[] part = (ResultPair[]) testObjects[testPartsIndexIndex]; //store passed in object as resultpair
+            testBuffer.append(part[index].item); //adding to our stringbuilder the string that we got passed in
+            expected &= part[index].valid; //if our part is valid, expect is true, otherwise expected is false
          }
+         //after for loop our testBuffer is known to be valid or not by the sum of the validity of its parts
          String url = testBuffer.toString();
          boolean result = urlVal.isValid(url);
          if(result == true)
         	 System.out.println(url);
-         assertEquals(url, expected, result);
-         if (printStatus) {
+         assertEquals(url, expected, result); //if last two arguments are not equal, print url
+         if (printStatus) { //code to format and print the url correctly
             if (printIndex) {
                System.out.print(testPartsIndextoString());
             } else {
@@ -199,7 +200,7 @@ protected void setUp() {
     * all of which must be individually valid for the entire URL to be considered
     * valid.
     */
-   ResultPair[] testUrlScheme = {new ResultPair("http://", true),
+   ResultPair[] testUrlScheme = {new ResultPair("http://", true), //9
                                new ResultPair("ftp://", true),
                                new ResultPair("h3t://", true),
                                new ResultPair("3ht://", false),
@@ -209,7 +210,7 @@ protected void setUp() {
                                new ResultPair("://", false),
                                new ResultPair("", true)};
 
-   ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),
+   ResultPair[] testUrlAuthority = {new ResultPair("www.google.com", true),//18
                                   new ResultPair("go.com", true),
                                   new ResultPair("go.au", true),
                                   new ResultPair("0.0.0.0", true),
@@ -228,7 +229,7 @@ protected void setUp() {
                                   new ResultPair("aaa", false),
                                   new ResultPair("", false)
    };
-   ResultPair[] testUrlPort = {new ResultPair(":80", true),
+   ResultPair[] testUrlPort = {new ResultPair(":80", true), //7
                              new ResultPair(":65535", true),
                              new ResultPair(":0", true),
                              new ResultPair("", true),
@@ -236,7 +237,7 @@ protected void setUp() {
                             new ResultPair(":65636",false),
                              new ResultPair(":65a", false)
    };
-   ResultPair[] testPath = {new ResultPair("/test1", true),
+   ResultPair[] testPath = {new ResultPair("/test1", true), //10
                           new ResultPair("/t123", true),
                           new ResultPair("/$23", true),
                           new ResultPair("/..", false),
@@ -248,7 +249,7 @@ protected void setUp() {
                           new ResultPair("/test1//file", false)
    };
    //Test allow2slash, noFragment
-   ResultPair[] testUrlPathOptions = {new ResultPair("/test1", true),
+   ResultPair[] testUrlPathOptions = {new ResultPair("/test1", true), //15
                                     new ResultPair("/t123", true),
                                     new ResultPair("/$23", true),
                                     new ResultPair("/..", false),
@@ -265,7 +266,7 @@ protected void setUp() {
                                     new ResultPair("/#/file", false)
    };
 
-   ResultPair[] testUrlQuery = {new ResultPair("?action=view", true),
+   ResultPair[] testUrlQuery = {new ResultPair("?action=view", true), //3
                               new ResultPair("?action=edit&mode=up", true),
                               new ResultPair("", true)
    };
