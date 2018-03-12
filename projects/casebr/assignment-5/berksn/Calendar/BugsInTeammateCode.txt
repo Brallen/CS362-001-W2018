@@ -1,0 +1,10 @@
+-------- BUG 1 --------
+Caught by which test: Test05 in Appt.Test
+Cause: isValid when checking month treats 12 as invalid
+Line # in file: 124 of Appt.java
+
+-------- BUG 2 --------
+Caught by which test: test01,04,05,06,07,10,11 in TimeTableTest and randomtest in TimeTableRandomTest
+Cause: ! is missing in getAppRange in TimeTable.java
+Line # in file: 39 of TimeTable.Java
+

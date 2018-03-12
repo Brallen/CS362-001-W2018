@@ -196,7 +196,7 @@ public class ApptTest {
 		startMonth = 12;
 		//this will fail because of an out of bounds error from getting the days in the month
 		Appt appt5 = new Appt(startHour, startMinute , startDay , startMonth , startYear , title, description);
-		assertFalse(appt5.getValid());
+		assertTrue(appt5.getValid());
 	}
 	
 	
@@ -303,7 +303,7 @@ public class ApptTest {
 		//Construct a new Appointment object with the initial data	 
 		Appt appt1 = new Appt(startHour, startMinute , startDay , startMonth , startYear , title, description);
 		//this is a bug it should return pm
-		String output = "\t4/30/2070 at 11:50am ,Meet Oprah, Don't forget a comb\n";
+		String output = "\t4/30/2070 at 11:50pm ,Meet Oprah, Don't forget a comb\n";
 		assertEquals(output, appt1.toString());
 	}
 	@Test //tests mutated represntationApp
